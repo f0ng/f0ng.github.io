@@ -174,7 +174,7 @@
       		<p>文章参考于：<br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIzOTE1ODczMg==&mid=2247485052&idx=1&sn=b007a722e233b45982b7a57c3788d47d&chksm=e92f12dfde589bc983ce09c240288ed0bb65b386246fcb8de1abf3c07a5942caf2275531f09c&mpshare=1&scene=24&srcid=0907dlaXsvE5ysMiV0Yabwdh&sharer_sharetime=1599441165640&sharer_shareid=29bf660e8cd9bc3e5265cd30046762d4#rd">xray社区(微信公众号)</a><br>由于文章只是大概说了思路，没有详细的进行操作说明，故有了此文</p>
 <h3 id="整体处理函数如下："><a href="#整体处理函数如下：" class="headerlink" title="整体处理函数如下："></a>整体处理函数如下：</h3><p><img src="/2020/09/07/shiro550%E5%8F%A6%E7%B1%BB%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F/1.png" alt="整体函数"></p>
 <h4 id="传入错误key："><a href="#传入错误key：" class="headerlink" title="传入错误key："></a>传入错误key：</h4><p>通过393行传入subjectContext，调用getRememberedSerializedIdentity函数，该函数位内org/apache/shiro/web/mgt/CookieRememberMeManager.java：</p>
-<p>该段函数含义为取cookie里的rememberMe参数，然后进行解码为字节数组<br>整体流程：<br>![取remember参数解码]](shiro另类检查方式/2.png)</p>
+<p>该段函数含义为取cookie里的rememberMe参数，然后进行解码为字节数组<br>整体流程：<br><img src="/2020/09/07/shiro550%E5%8F%A6%E7%B1%BB%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F/2.png" alt="取remember参数解码"></p>
 <p>随后进入红箭头指向的这一步，convertBytesToPrincipals函数用shiro里的key对传入的参数进行解密等一系列操作，跟进convertBytesToPrincipals函数<br><img src="/2020/09/07/shiro550%E5%8F%A6%E7%B1%BB%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F/3.png" alt="convertBytesToPrincipals函数"></p>
 <p>发现调用了decrypt函数进行解密，继续跟进:<br><img src="/2020/09/07/shiro550%E5%8F%A6%E7%B1%BB%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F/4.png" alt="decrypt函数"></p>
 <p>这里489行调用了key进行解密，当然，这里肯定是得不到结果的，因为传入的key是错误的，那么我们回过头，去看整体的函数，就会被<br><img src="/2020/09/07/shiro550%E5%8F%A6%E7%B1%BB%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F/5.png" alt="捕捉异常"></p>
