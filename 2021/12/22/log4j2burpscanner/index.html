@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<!--<![endif]-->
+
+<head>
+  <title>log4j2burpscanner | f0ng</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="f0ng">
+    <meta name="author" content="f0ng">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="f0ng" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">f0ng</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/f0ng" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/ff0ng" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2021-12-22T03:22:30.000Z" itemprop="datePublished">
+          2021-12-22
+      </time>
+    
+</span>
+                <h1>log4j2burpscanner</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>本文为log4j2burpscanner插件的用法说明</p>
+<h4 id="0x00-写在前面"><a href="#0x00-写在前面" class="headerlink" title="0x00 写在前面"></a>0x00 写在前面</h4><p>本工具仅为企业测试漏洞使用，严禁他人使用本工具攻击</p>
+<p>请勿将本项目技术或代码应用在恶意软件制作、软件著作权/知识产权盗取或不当牟利等非法用途中。实施上述行为或利用本项目对非自己著作权所有的程序进行数据嗅探将涉嫌违反《中华人民共和国刑法》第二百一十七条、第二百八十六条，《中华人民共和国网络安全法》《中华人民共和国计算机软件保护条例》等法律规定。本项目提及的技术仅可用于私人学习测试等合法场景中，任何不当利用该技术所造成的刑事、民事责任均与本项目作者无关。</p>
+<h4 id="0x01-插件介绍"><a href="#0x01-插件介绍" class="headerlink" title="0x01 插件介绍"></a>0x01 插件介绍</h4><p>​        本插件是为了扫描CVE-2021-44228漏洞而写的，主要是该漏洞影响较大，且不易发现，所以写了一个burp的插件，进行被动化扫描，方便测试。</p>
+<p>​        插件继承的是burp的passive接口，所以拥有passive的一些特性，比如在一次burp记录中，不会对同一数据包进行第二次扫描、比如默认不会扫描repeater模块里的数据包等等。</p>
+<p>​        插件的特点是用最少的数据包尽可能探测更多的漏洞，所以不会去每个参数进行发包，只会在一个数据包内把所有的参数点进行payload的探测。</p>
+<h4 id="0x02-如何使用？"><a href="#0x02-如何使用？" class="headerlink" title="0x02 如何使用？"></a>0x02 如何使用？</h4><p>在<a target="_blank" rel="noopener" href="https://github.com/f0ng/log4j2burpscanner/releases/">Releases</a>下载最新jar包，在burp的<code>Extender</code>模块进行导入，插件页面如下(当存在漏洞，该页面才会有请求和响应)</p>
+<p><img src="https://user-images.githubusercontent.com/48286013/147305066-0c665e8d-88f0-46ad-b792-c729a3ebdef7.png" alt="插件页面"></p>
+<p>如果出现插件页面，且可以正常使用(正常扫描)，那么就不用管报错，大部分都是jdk导致的ui图形的报错</p>
+<p>访问一个存在漏洞的站点，进行代理至burp：</p>
+<p><img src="https://user-images.githubusercontent.com/48286013/147305095-60d79714-5aaf-4cf2-a2e0-d89991e08fed.png" alt="image-20211224000136631"></p>
+<p>进行登录，使<code>Proxy</code>模块有登录的记录：</p>
+<p><img src="https://user-images.githubusercontent.com/48286013/147305116-0afccd23-a8db-427f-a334-50bd417f5b0f.png" alt="image-20211224000229756"></p>
+<p>过一会就可以看到插件在报告漏洞了，插件页面：</p>
+<p><img src="https://user-images.githubusercontent.com/48286013/147305148-5b901524-2e70-4285-9e5b-be60e3a9c878.png" alt="image-20211224001145696"></p>
+<p>显示的是参数点0出现漏洞，可以找数字为0的payload，可以看到是<code>username</code>处的问题</p>
+<p>Dnslog平台的请求：</p>
+<p><img src="https://user-images.githubusercontent.com/48286013/147305172-cf8bcd6f-3b0a-4a20-8b94-36699efe86d8.png" alt="image-20211224001207713"></p>
+<p>如果要对靶场测试，最好把自定义参数的√全部去掉，因为一些靶场没有对其他请求头处理，除非特殊情况的靶场需要自定义参数，普通靶场采用默认即可检测出来</p>
+<p>这里检测也可以进行右键数据包<code>Send to log4j2 Scanner</code>进行对单个数据包的扫描，也可以达到同样效果</p>
+<p><img src="https://user-images.githubusercontent.com/48286013/147305183-08518265-ace9-4c38-aa1d-5871ae842c70.png" alt="image-20211224001508381"></p>
+<h4 id="0x03-插件参数介绍"><a href="#0x03-插件参数介绍" class="headerlink" title="0x03 插件参数介绍"></a>0x03 插件参数介绍</h4><p>主要是两个模块</p>
+<h5 id="dnslog-configuration"><a href="#dnslog-configuration" class="headerlink" title="dnslog configuration"></a>dnslog configuration</h5><p>0x001 log4j2 Passive Scanner 为被动扫描开关，勾选就会进行被动扫描，不勾选就不会扫描</p>
+<p>0x002 isuseceye 是否使用ceye.io的平台</p>
+<p>0x003 ceyetoken ceye.io的用户token</p>
+<p>0x004 ceyednslog ceye.io的用户记录域名</p>
+<p>0x005 isuseprivatedns 是否使用自定义dnslog</p>
+<p>0x006 isip 自定义dnslog是否为ip(主要针对内网的ip监听)</p>
+<p>0x007 privatednslogurl 自定义的dnslog记录域名</p>
+<p>0x008 privatednsResponseurl 自定义dnslog记录域名响应查看地址，详细自定义dnslog配置可以到<a target="_blank" rel="noopener" href="https://github.com/f0ng/log4j2burpscanner/blob/main/FAQ-zh-CN.md#0x01%E8%AE%BE%E7%BD%AE%E5%9F%9F%E5%90%8D%E7%B1%BB%E5%9E%8Bdnslog%E5%B9%B3%E5%8F%B0">此处</a>查看</p>
+<p>0x009 Save configuration 保存配置</p>
+<p>0x010 Restore/Loading latest params 恢复默认参数</p>
+<p>0x011 Test dnslog delay 测试与dnslog的延迟</p>
+<h6 id="custom-params"><a href="#custom-params" class="headerlink" title="custom params"></a>custom params</h6><p>0x001 jndiparam 传入的jndi参数，可以使用类似于<code>j$&#123;::-n&#125;di:</code>进行替换，达到bypass效果</p>
+<p>0x002 dnsldaprmi 可选，传入dns、ldap、rmi三个参数</p>
+<p>0x003 white lists 白名单，可使用通配符进行配置，如<code>*.gov.cn</code>、<code>*.edu.cn</code>也可以设置成指定的域名后缀结尾，如<code>qq.com</code>，这样任何以qq.com结尾的域名都不会进行扫描</p>
+<p>0x004 headers lists 自定义请求头的参数名</p>
+<p>0x005 test UserAgentTokenXff 是否测试User-Agent、token(包含jwt一些关键字) 、常见XFF头参数等</p>
+<p>0x006 test Xfflists 是否测试所有xff头参数</p>
+<p>0x007 test Cookie 是否测试所有Cookie</p>
+<p>0x008 test RefererOrigin 是否测试Referer、Origin参数</p>
+<p>0x009 test Contenttype 是否测试Contenttype参数</p>
+<p>0x010 test Accept 是否测试Accept等参数</p>
+<h4 id="0x04-插件常见问题解答"><a href="#0x04-插件常见问题解答" class="headerlink" title="0x04 插件常见问题解答"></a>0x04 插件常见问题解答</h4><p>一些小问题在项目的<a target="_blank" rel="noopener" href="https://github.com/f0ng/log4j2burpscanner/blob/main/FAQ-zh-CN.md">FAQ</a>里已有解答，这里说说常见的问题</p>
+<h5 id="0x001-插件不生效-插件右键Send-to-log4j2-Scanner按钮没有反应、插件不会被动扫描"><a href="#0x001-插件不生效-插件右键Send-to-log4j2-Scanner按钮没有反应、插件不会被动扫描" class="headerlink" title="0x001 插件不生效(插件右键Send to log4j2 Scanner按钮没有反应、插件不会被动扫描)"></a>0x001 插件不生效(插件右键<code>Send to log4j2 Scanner</code>按钮没有反应、插件不会被动扫描)</h5><p>主要问题在于<code>jdk版本</code>的问题，后续发现还与<code>burp的版本</code>有关，甚至与电脑的<code>操作系统</code>有关系</p>
+<p>测试成功的是MACOS <code>jdk10.0.2</code>启动2021.5版本的burp，burp的<code>Java environment</code>是<code>1.8_231</code>或者<code>1.8_151</code>都是可以正常运行的</p>
+<p>现在已知的是burp的<code>Java environment</code>高版本的jdk是不能成功的，如jdk15 jdk14等等，小版本号太高也可能无法成功，如1.8_301</p>
+<p>总体来说这个问题是个玄学问题，但是使用和我一样的<code>指定版本号</code>95%是可以正常运行的</p>
+<h4 id="0x05-最后"><a href="#0x05-最后" class="headerlink" title="0x05 最后"></a>0x05 最后</h4><p>打算创个vx交流群，反馈工具以及解决问题，发vx到<a href="mailto:&#106;&#116;&#x73;&#113;&#114;&#x6a;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#106;&#116;&#x73;&#113;&#114;&#x6a;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a>，备注加群</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
+    
+    
+    <a class="pull-right" href="/2020/09/07/shiro550%E5%8F%A6%E7%B1%BB%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F/">
+        shiro550另类检查方式 →
+    </a>
+    
+</nav>
+
+        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
+  /**
+   * 搜狐畅言
+   */
+
+  /*
+  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
+
+  window.onload = function () {
+    (function () {
+      var appid = 'cytXXXX';
+      var conf = 'prod_xxxxxxxxxxxxxxxxx';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      var loadJs = function (d, a, id) {
+        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+        var b = document.createElement("script");
+        b.setAttribute("type", "text/javascript");
+        b.setAttribute("charset", "UTF-8");
+        b.setAttribute("src", d);
+        if (id) {
+          b.setAttribute("id", id);
+        }
+        if (typeof a === "function") {
+          if (window.attachEvent) {
+            b.onreadystatechange = function () {
+              var e = b.readyState;
+              if (e === "loaded" || e === "complete") {
+                b.onreadystatechange = null;
+                a()
+              }
+            }
+          } else {
+            b.onload = a
+          }
+        }
+        c.appendChild(b)
+      };
+
+      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
+        window.changyan.api.config({
+          appid: appid,
+          conf: conf
+        })
+      });
+    })();
+  }
+  */
+
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By f0ng. All Rights Reserved.
+                </p>
+                <p>Theme By <a target="_blank" rel="noopener" href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/f0ng" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/ff0ng" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+      
+</body>
+</html>
