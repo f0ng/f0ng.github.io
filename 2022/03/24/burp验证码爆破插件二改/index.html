@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<!--<![endif]-->
+
+<head>
+  <title>burp验证码爆破插件二改 | f0ng</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="f0ng">
+    <meta name="author" content="f0ng">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="f0ng" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">f0ng</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/f0ng" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/ff0ng" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2022-03-24T14:46:52.000Z" itemprop="datePublished">
+          2022-03-24
+      </time>
+    
+</span>
+                <h1>burp验证码爆破插件二改</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>这不315晚会burp都上了嘛，蹭蹭时事热点。</p>
+<h1 id="0x01-背景"><a href="#0x01-背景" class="headerlink" title="0x01 背景"></a>0x01 背景</h1><p>最近遇到了很多验证码登录口，验证码识别项目github上找了几个，但是不是装不上就是准确率不高的问题，后续也是慢慢修改出来了还算满意的识别验证码插件。</p>
+<p>原插件项目地址为： <strong><a target="_blank" rel="noopener" href="https://github.com/c0ny1/captcha-killer">https://github.com/c0ny1/captcha-killer</a></strong></p>
+<p>修改后的项目地址为: <strong><a target="_blank" rel="noopener" href="https://github.com/f0ng/captcha-killer-modified">https://github.com/f0ng/captcha-killer-modified</a></strong></p>
+<p>已征得原作者同意进行二开</p>
+<h1 id="0x02插件二次修改"><a href="#0x02插件二次修改" class="headerlink" title="0x02插件二次修改"></a>0x02插件二次修改</h1><p>直接下载原项目的jar包，按照项目说明进行使用，发现intruder无法进行爆破，有些情况也满足不了需求，后面优化了一下，总共修改了两处地方</p>
+<h4 id="修改点1"><a href="#修改点1" class="headerlink" title="修改点1"></a>修改点1</h4><p>发现使用过程中出现了报错 <img src="https://gitee.com/f0ng/pictures/raw/master/2022-3-17/1647525911565-14061647525908_.pic.jpg" alt="img"> 后面查了一下，原因是<code>sun.misc.BASE64Encoder</code>类不在jdk8+支持了，因为都在用新版burp了，而新版burp启动需要高版本的jdk，这里我是jdk10启动的burp，所以没有<code>sun.misc.BASE64Encoder</code>类</p>
+<p>下载源码，修改java.utils.Util里的源码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; FileName: Util.java</span><br><span class="line"> public static String base64Encode(byte[] byteArray)&#123;</span><br><span class="line">        byte[] res &#x3D; Base64.getEncoder().encode(byteArray);</span><br><span class="line">        String res2 &#x3D; new String(res);</span><br><span class="line">        res2 &#x3D; res2.replace(System.lineSeparator(),&quot;&quot;);</span><br><span class="line">        return res2;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String base64Encode(String str)&#123;</span><br><span class="line">        byte[] b &#x3D; new byte[]&#123;&#125;;</span><br><span class="line">        try &#123;</span><br><span class="line">            b &#x3D; str.getBytes(&quot;UTF-8&quot;);</span><br><span class="line">        &#125; catch (UnsupportedEncodingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        byte[] res &#x3D; Base64.getEncoder().encode(b);</span><br><span class="line">        String res2 &#x3D; new String(res);</span><br><span class="line">        &#x2F;&#x2F;去除base64结果中的换行符，java base64编码默认会76个字母换行一次</span><br><span class="line">        res2 &#x3D; res2.replace(System.lineSeparator(),&quot;&quot;);</span><br><span class="line">        return res2;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static byte[] base64Decode(String str)&#123;</span><br><span class="line">        byte[] byteRes &#x3D; new byte[]&#123;&#125;;</span><br><span class="line">        byteRes &#x3D; Base64.getDecoder().decode(str);</span><br><span class="line">        return byteRes;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>再导入依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Base64;</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改点2"><a href="#修改点2" class="headerlink" title="修改点2"></a>修改点2</h4><p>这里还有个不是很完美的地方，只能识别响应包为图片的验证码，但是遇到的真实环境中，也有一种<code>data:image</code>这种格式的验证码，这个插件就无法识别了，如下：</p>
+<p><img src="https://gitee.com/f0ng/pictures/raw/master/2022-3-17/1647526591255-14071647526588_.pic.jpg" alt="img"></p>
+<p>这里我也进行了一点修改，主要是响应包图片的提取，主要修改如下： 在java.utils.Util包中增加函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public static byte[] dataimgToimg(String str_img) throws IOException &#123;</span><br><span class="line">    String pattern &#x3D; &quot;(data:image.*?)[\&quot;|&amp;]|(data%2Aimage.*?)[\&quot;|&amp;]&quot;;</span><br><span class="line">    Pattern r &#x3D; Pattern.compile(pattern);</span><br><span class="line">    Matcher m &#x3D; r.matcher(str_img);</span><br><span class="line">    if (m.find( )) &#123;</span><br><span class="line">        str_img &#x3D; m.group(0).replace(&quot;\&quot;&quot;,&quot;&quot;).replace(&quot;&amp;&quot;,&quot;&quot;) ;</span><br><span class="line">    &#125;</span><br><span class="line">    byte[] img &#x3D; DatatypeConverter.parseBase64Binary(str_img.substring(str_img.indexOf(&quot;,&quot;) + 1));</span><br><span class="line">    InputStream buffin &#x3D; new ByteArrayInputStream(img);</span><br><span class="line">    return img;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static boolean isImage(String str_img) throws IOException &#123;</span><br><span class="line">        String pattern &#x3D; &quot;(data:image.*?)[\&quot;|&amp;]|(data%2Aimage.*?)[\&quot;|&amp;]&quot;;</span><br><span class="line">        Pattern r &#x3D; Pattern.compile(pattern);</span><br><span class="line">        Matcher m &#x3D; r.matcher(str_img);</span><br><span class="line">        if (m.find( )) &#123;</span><br><span class="line">            str_img &#x3D; m.group(0).replace(&quot;\&quot;&quot;,&quot;&quot;).replace(&quot;&amp;&quot;,&quot;&quot;) ;</span><br><span class="line">        &#125;</span><br><span class="line">        byte[] img &#x3D; DatatypeConverter.parseBase64Binary(str_img.substring(str_img.indexOf(&quot;,&quot;) + 1));</span><br><span class="line">        boolean isImg &#x3D; false;</span><br><span class="line">        InputStream buffin &#x3D; new ByteArrayInputStream(img);</span><br><span class="line">        BufferedImage image &#x3D; ImageIO.read(buffin);</span><br><span class="line">        if(image &#x3D;&#x3D; null)&#123;</span><br><span class="line">            isImg &#x3D; false;</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            isImg &#x3D; true;</span><br><span class="line">        &#125;</span><br><span class="line">        return isImg;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改后对项目进行编译：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mvn package</span><br></pre></td></tr></table></figure>
+
+<p>识别的效果如下： <img src="https://gitee.com/f0ng/pictures/raw/master/2022-3-17/1647526693492-14081647526673_.pic.jpg" alt="img"></p>
+<h1 id="0x03-插件验证码识别库的选择"><a href="#0x03-插件验证码识别库的选择" class="headerlink" title="0x03 插件验证码识别库的选择"></a>0x03 插件验证码识别库的选择</h1><p>这里的接口大部分都需要付费，如baidu的接口每天只有300次，还有其他平台的，每天有限制次数，不利于咱们测试呀</p>
+<p><img src="https://gitee.com/f0ng/pictures/raw/master/2022-3-17/1647526896156-image.png" alt="img"></p>
+<p>于是在我的不懈努力下，找到了一个开源识别验证码的项目，项目地址为： <strong><a target="_blank" rel="noopener" href="https://github.com/sml2h3/ddddocr">https://github.com/sml2h3/ddddocr</a></strong></p>
+<p>所需要的环境支持如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python &lt;&#x3D; 3.9</span><br><span class="line">Windows&#x2F;Linux&#x2F;Macos..</span><br><span class="line">暂时不支持Macbook M1(X)，M1(X)用户需要自己编译onnxruntime才可以使用</span><br></pre></td></tr></table></figure>
+
+<h1 id="0x04-实际效果"><a href="#0x04-实际效果" class="headerlink" title="0x04 实际效果"></a>0x04 实际效果</h1><p>安装好ocr库以后直接运行代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># author:f0ngf0ng</span><br><span class="line"></span><br><span class="line">import argparse</span><br><span class="line">import ddddocr                       # 导入 ddddocr</span><br><span class="line">from aiohttp import web</span><br><span class="line"></span><br><span class="line">parser &#x3D; argparse.ArgumentParser()</span><br><span class="line">parser.add_argument(&quot;-p&quot;, help&#x3D;&quot;http port&quot;,default&#x3D;&quot;8888&quot;)</span><br><span class="line">args &#x3D; parser.parse_args()</span><br><span class="line"></span><br><span class="line">ocr &#x3D; ddddocr.DdddOcr()</span><br><span class="line">port &#x3D; args.p</span><br><span class="line"></span><br><span class="line">async def handle_cb(request):</span><br><span class="line">    return web.Response(text&#x3D;ocr.classification(img_base64&#x3D;await request.text()))</span><br><span class="line"></span><br><span class="line">app &#x3D; web.Application()</span><br><span class="line">app.add_routes([</span><br><span class="line">    web.post(&#39;&#x2F;reg&#39;, handle_cb),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    web.run_app(app, port&#x3D;port)</span><br><span class="line">$ python3 codereg.py</span><br></pre></td></tr></table></figure>
+
+<p>运行代码界面</p>
+<p><img src="https://gitee.com/f0ng/pictures/raw/master/2022-3-17/1647527108925-image.png" alt="img"> 识别模板如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;reg HTTP&#x2F;1.1</span><br><span class="line">Host: 127.0.0.1:8888</span><br><span class="line">Connection: close</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;76.0.3809.132 Safari&#x2F;537.36</span><br><span class="line">Sec-Fetch-Mode: navigate</span><br><span class="line">Sec-Fetch-User: ?1</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,image&#x2F;apng,*&#x2F;*;q&#x3D;0.8,application&#x2F;signed-exchange;v&#x3D;b3</span><br><span class="line">Sec-Fetch-Site: none</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.9</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">Content-Length: 55</span><br><span class="line"></span><br><span class="line">&lt;@BASE64&gt;&lt;@IMG_RAW&gt;&lt;&#x2F;@IMG_RAW&gt;&lt;&#x2F;@BASE64&gt;</span><br></pre></td></tr></table></figure>
+
+<p>记得设置接口地址为:<code>http://127.0.0.1:8888</code></p>
+<p>点击识别</p>
+<p><img src="https://gitee.com/f0ng/pictures/raw/master/2022-3-17/1647527191327-image.png" alt="img"> 即可识别出来验证码，准确率还不错，在85%以上，重要的是免费，无限使用</p>
+<p><img src="https://gitee.com/f0ng/pictures/raw/master/2022-3-17/1647527262569-image.png" alt="img"></p>
+<p><img src="https://gitee.com/f0ng/pictures/raw/master/2022-3-17/1647527271834-image.png" alt="img"></p>
+<p>关于captcha-killer的用法可以参考c0ny1师傅的文章</p>
+<p>注：</p>
+<ul>
+<li>intruder的cookie要和captcha-killer的cookie一致</li>
+<li>intruder的线程调为1，最好加时间延迟参数</li>
+</ul>
+<h1 id="0x05-总结"><a href="#0x05-总结" class="headerlink" title="0x05 总结"></a>0x05 总结</h1><ol>
+<li>最近一直在写、改一些插件，发现burp对jdk版本高低太敏感了，有些时候特定的jdk版本会造成插件之间的冲突</li>
+<li>修改插件感觉就像是站在巨人的肩膀上，不得不说c0ny1师傅的这个插件GUI页面用起来都很舒服</li>
+<li>学会开发很重要，可以自己进行自定义修改，不做百分百的脚本小子</li>
+</ol>
+<h1 id="0x06-附录"><a href="#0x06-附录" class="headerlink" title="0x06 附录"></a>0x06 附录</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/c0ny1/captcha-killer">https://github.com/c0ny1/captcha-killer</a>  [插件源项目]</p>
+<p><a target="_blank" rel="noopener" href="https://gv7.me/articles/2019/burp-captcha-killer-usage/">https://gv7.me/articles/2019/burp-captcha-killer-usage/</a> [插件用法]</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/sml2h3/ddddocr">https://github.com/sml2h3/ddddocr</a> [验证码识别项目]</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PoJun-Lab/blaster">https://github.com/PoJun-Lab/blaster</a> [验证码登录爆破]</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/f0ng/captcha-killer-modified">https://github.com/f0ng/captcha-killer-modified</a> [修改后的burp验证码识别插件]</p>
+</blockquote>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
+    
+    
+    <a class="pull-right" href="/2021/12/22/log4j2burpscanner/">
+        log4j2burpscanner →
+    </a>
+    
+</nav>
+
+        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
+  /**
+   * 搜狐畅言
+   */
+
+  /*
+  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
+
+  window.onload = function () {
+    (function () {
+      var appid = 'cytXXXX';
+      var conf = 'prod_xxxxxxxxxxxxxxxxx';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      var loadJs = function (d, a, id) {
+        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+        var b = document.createElement("script");
+        b.setAttribute("type", "text/javascript");
+        b.setAttribute("charset", "UTF-8");
+        b.setAttribute("src", d);
+        if (id) {
+          b.setAttribute("id", id);
+        }
+        if (typeof a === "function") {
+          if (window.attachEvent) {
+            b.onreadystatechange = function () {
+              var e = b.readyState;
+              if (e === "loaded" || e === "complete") {
+                b.onreadystatechange = null;
+                a()
+              }
+            }
+          } else {
+            b.onload = a
+          }
+        }
+        c.appendChild(b)
+      };
+
+      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
+        window.changyan.api.config({
+          appid: appid,
+          conf: conf
+        })
+      });
+    })();
+  }
+  */
+
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By f0ng. All Rights Reserved.
+                </p>
+                <p>Theme By <a target="_blank" rel="noopener" href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/f0ng" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/ff0ng" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+      
+</body>
+</html>
