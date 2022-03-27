@@ -195,52 +195,52 @@
 <p>为了方便理解，以<code>testsql.php</code>这个测试文件举例，<code>testsql.php</code>是一个以DES加密请求包和响应包的测试页面，存在SQL注入漏洞。</p>
 <p>以<code>&#123;&quot;id&quot;:&quot;2&quot;&#125;</code>举例，加密后的密文为<code>Gh9+wH+QSIkOwCj/QK/Kiw==</code>。</p>
 <h3 id="使用自带算法进行加解密"><a href="#使用自带算法进行加解密" class="headerlink" title="使用自带算法进行加解密"></a>使用自带算法进行加解密</h3><p>插件配置如下：</p>
-<p><img src="https://files.mdnice.com/user/23628/5b3a4021-f0c7-451f-aba0-8668d5a134b0.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264846-8aff011b-35ae-4565-9a6d-f75880f847e1.png" alt="img"></p>
 <p>原始请求如下</p>
-<p><img src="https://files.mdnice.com/user/23628/b6803ba3-ffc7-4630-9020-b799d83d1add.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264859-4575850b-0617-4f9c-b06d-6d2640b951ff.png" alt="img"></p>
 <p>点击<code>autoDecoder</code></p>
-<p><img src="https://files.mdnice.com/user/23628/7a99d11c-4155-472d-a4f4-dcf3e20d586d.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264892-230fac43-2c49-4cdf-8dd9-f4d491482566.png" alt="img"></p>
 <p>再次点击Send按钮进行请求，响应包自动解密</p>
-<p><img src="https://files.mdnice.com/user/23628/4ef2a9aa-b75a-4f7e-ae7d-5b5eef29cb9a.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264900-2487eb7f-c296-4cfb-a730-f512d1c942d6.png" alt="img"></p>
 <p>也可以直接拿sqlmap进行测试，为做对比，先关闭插件的加解密</p>
-<p><img src="https://files.mdnice.com/user/23628/282ee80d-7333-438a-8efd-7d773676f878.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264907-541f18ad-646a-434e-a5d5-982d071f6e2c.png" alt="img"></p>
 <p>直接明文进行sqlmap跑注入，代理到proxy，增加命令 <code>--proxy=http://127.0.0.1:8080</code></p>
 <p>数据包如下：</p>
-<p><img src="https://files.mdnice.com/user/23628/a0d545ca-bcdc-4556-8c71-7a9a7d8b02ab.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264941-df63fefe-aa1b-440e-a45d-088ba64120a1.png" alt="img"></p>
 <p>burp里sqlmap的第一个请求数据包如下：</p>
-<p><img src="https://files.mdnice.com/user/23628/4addb41e-4789-4bfc-9b0d-2351fa6b2b8e.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264951-808fd407-0efa-4917-9027-381d91b777e9.png" alt="img"></p>
 <p>跑不出来注入（没有启动插件，传参是明文，所以无回显）</p>
 <p>sqlmap结果</p>
-<p><img src="https://files.mdnice.com/user/23628/46e67315-34b5-4acf-a0c6-30c8b60fa177.jpg" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264965-fe36ff0b-64c1-48a6-8799-b3ac857e8fbc.png" alt="img"></p>
 <p>开启插件：</p>
-<p><img src="https://files.mdnice.com/user/23628/7c4f6a87-a41f-4fc9-a952-c07a408dd1e3.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264979-a0c98e93-4e47-4520-a4db-955dd1ecca23.png" alt="img"></p>
 <p>再次使用sqlmap，代理到proxy，增加命令 <code>--proxy=http://127.0.0.1:8080</code></p>
 <p>burp里sqlmap的第一个请求（启动了插件，传参是明文，会自动加密，所以有回显）</p>
-<p><img src="https://files.mdnice.com/user/23628/2a086ec2-a819-4bf2-a0d6-26c84ee800a1.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264983-54022752-f3f8-4936-88c7-10386ac31e3b.png" alt="img"></p>
 <p>sqlmap结果</p>
-<p><img src="https://files.mdnice.com/user/23628/d7bbd7d6-e47a-4599-a5ce-b4bff044320a.png" alt="img"></p>
-<p><img src="https://files.mdnice.com/user/23628/35cf8576-9571-426d-ba85-d4e098460569.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264989-390e2ade-e2be-4ab7-b0a1-ef3e7828fd5c.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160264994-27bf5626-58f6-48a1-bd6c-0e3ecb8e303b.png" alt="img"></p>
 <p>注入成功跑出</p>
 <h3 id="使用自定义接口进行加解密"><a href="#使用自定义接口进行加解密" class="headerlink" title="使用自定义接口进行加解密"></a>使用自定义接口进行加解密</h3><p>python代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># author:f0ngf0ng</span><br><span class="line"></span><br><span class="line">from flask import Flask,Response,request</span><br><span class="line">from pyDes import *</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line">def des_encrypt(s):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    DES 加密</span><br><span class="line">    :param s: 原始字符串</span><br><span class="line">    :return: 加密后字符串，16进制</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    secret_key &#x3D; &quot;f0ngtest&quot;</span><br><span class="line">    iv &#x3D; &quot;f0ngf0ng&quot;</span><br><span class="line">    k &#x3D; des(secret_key, CBC, iv, pad&#x3D;None, padmode&#x3D;PAD_PKCS5)</span><br><span class="line">    en &#x3D; k.encrypt(s, padmode&#x3D;PAD_PKCS5)</span><br><span class="line">    return base64.encodebytes(en).decode()</span><br><span class="line"></span><br><span class="line">def des_decrypt(s):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    DES 解密</span><br><span class="line">    :param s: 加密后的字符串，16进制</span><br><span class="line">    :return:  解密后的字符串</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    secret_key &#x3D; &quot;f0ngtest&quot;</span><br><span class="line">    iv &#x3D; &quot;f0ngf0ng&quot;</span><br><span class="line">    k &#x3D; des(secret_key, CBC, iv, pad&#x3D;None, padmode&#x3D;PAD_PKCS5)</span><br><span class="line">    de &#x3D; k.decrypt(base64.decodebytes(bytes(s,encoding&#x3D;&quot;utf-8&quot;)), padmode&#x3D;PAD_PKCS5)</span><br><span class="line">    return de.decode()</span><br><span class="line"></span><br><span class="line">app &#x3D; Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&#39;&#x2F;encode&#39;,methods&#x3D;[&quot;POST&quot;])</span><br><span class="line">def encrypt():</span><br><span class="line">    param &#x3D; request.form.get(&#39;data&#39;)  # 获取  post 参数</span><br><span class="line">    encry_param &#x3D; des_encrypt(param.strip(&quot;\n&quot;))</span><br><span class="line">    print(param)</span><br><span class="line">    print(encry_param)</span><br><span class="line">    return encry_param</span><br><span class="line"></span><br><span class="line">@app.route(&#39;&#x2F;decode&#39;,methods&#x3D;[&quot;POST&quot;])</span><br><span class="line">def decrypt():</span><br><span class="line">    param &#x3D; request.form.get(&#39;data&#39;)  # 获取  post 参数</span><br><span class="line">    decrypt_param &#x3D; des_decrypt(param.strip(&quot;\n&quot;))</span><br><span class="line">    print(param)</span><br><span class="line">    print(decrypt_param)</span><br><span class="line">    return decrypt_param</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    app.debug &#x3D; True # 设置调试模式，生产模式的时候要关掉debug</span><br><span class="line">    app.run(host&#x3D;&quot;0.0.0.0&quot;,port&#x3D;&quot;8888&quot;)</span><br></pre></td></tr></table></figure>
 
 <p>插件配置如下：</p>
-<p><img src="https://files.mdnice.com/user/23628/cada20bf-6060-418b-b53f-e99059335376.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160265006-5fc07aa3-df0b-4c31-80b7-654868b118d6.png" alt="img"></p>
 <p>原始请求如下：</p>
-<p><img src="https://files.mdnice.com/user/23628/05edcbef-b973-4ad4-bd33-a7378588d43c.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160265008-71d596ca-27f7-49b0-9a70-03b57824eaac.png" alt="img"></p>
 <p>点击<code>autoDecoder</code></p>
-<p><img src="https://files.mdnice.com/user/23628/a05cbac0-bf6c-40f5-8f6d-b8db204dea82.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160265018-24676d33-3470-43b2-91ed-d238d955c2b2.png" alt="img"></p>
 <p>再次请求</p>
-<p><img src="https://files.mdnice.com/user/23628/87d2589a-4ac3-4eea-9d6c-c12e617b1436.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160265031-aded9f70-2ba0-4b6e-ab12-58277799b5d2.png" alt="img"></p>
 <p>sqlmap使用也是一样的，代理到burp即可，这里不再赘述</p>
 <h3 id="实战环境中"><a href="#实战环境中" class="headerlink" title="实战环境中"></a>实战环境中</h3><blockquote>
 <p>APP1</p>
 </blockquote>
-<p><img src="https://files.mdnice.com/user/23628/bbd74da4-e426-4983-8a4d-8230542228b5.jpg" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160265037-fb3714e2-ebd9-451c-a256-8ece4a9e8136.png" alt="img"></p>
 <blockquote>
 <p>APP2</p>
 </blockquote>
-<p><img src="https://files.mdnice.com/user/23628/ab8d1bed-d7a4-45c0-9fc8-f9ade39aa3a2.png" alt="img"></p>
+<p><img src="https://user-images.githubusercontent.com/48286013/160265048-89f800dc-fee2-453a-a9c2-4264f90a1d0b.png" alt="img"></p>
 <h1 id="0x05-总结"><a href="#0x05-总结" class="headerlink" title="0x05 总结"></a>0x05 总结</h1><ol>
 <li>越来越多的小程序、app都使用了加密算法，要想更容易挖到漏洞，对于加解密的知识还是要有所了解的。</li>
 <li>对于这种加解密的程序，其实也可以用被动漏扫，上游代理解密和下游代理加密，中间穿插被动漏扫，有时间也可以记录下。</li>
