@@ -172,7 +172,10 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<p>之前碰到过好几次Struts2，还都是016，项目、众测都遇到过，每次都只是证明了一下存在，由于waf的存在，没有深入去利用，这里简单的记录下。</p>
-<h2 id="0x01-背景"><a href="#0x01-背景" class="headerlink" title="0x01 背景"></a>0x01 背景</h2><p>xray或者Struts2漏扫可以扫到网站存在Struts2漏洞<br><img src="https://files.mdnice.com/user/23628/a4bfd434-a3ab-42da-9a5b-6d4ba5ee27b2.png"></p>
+<h2 id="0x01-背景"><a href="#0x01-背景" class="headerlink" title="0x01 背景"></a>0x01 背景</h2><p>xray或者Struts2漏扫可以扫到网站存在Struts2漏洞</p>
+<img src="https://files.mdnice.com/user/23628/a4bfd434-a3ab-42da-9a5b-6d4ba5ee27b2.png" referrerpolicy="no-referrer">
+
+<p><img src="https://files.mdnice.com/user/23628/a4bfd434-a3ab-42da-9a5b-6d4ba5ee27b2.png"></p>
 <p>但是执行命令会发现直接<code>Connection Reset</code>，很明显是被waf拦截了</p>
 <h2 id="0x02-探究waf规则"><a href="#0x02-探究waf规则" class="headerlink" title="0x02 探究waf规则"></a>0x02 探究waf规则</h2><p>一个一个删除关键字，发现拦截的关键字有三个：<br><code>Runtime</code>、<code>dispatcher</code></p>
 <ul>
