@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>f0ng</title>
+  <title>Archives: 2022/4 | f0ng</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -186,215 +186,32 @@
 <!-- // End height spacing helper -->
 
 <!-- ============================ END Hero Image =========================== -->
-<!-- ============================ Content =========================== -->
 
-<section id="intro">
+
+
+
+<section id="services">
     <div class="container">
-        
         <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2022/04/14/struts2绕过waf读写文件及另类方式执行命令/">struts2绕过waf读写文件及另类方式执行命令</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2022-04-14T02:40:57.000Z" itemprop="datePublished">
-          2022-04-14
-      </time>
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        之前碰到过好几次Struts2，还都是016，项目、众测都遇到过，每次都只是证明了一下存在，由于waf的存在，没有深入去利用，这里简单的记录下。
-0x01 背景xray或者Struts2漏扫可以扫到网站存在Struts2漏洞
-但是执行命令会发现直接Connection Reset，很明显是被waf拦截了
-0x02 探究waf规则一个一个删除关键字，发现拦截的关键字有三个：Runtime、dispatcher
-
-Runtime很熟悉，执行
-                      
-                    </p>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row boxes">
                     
-                    <p class="pull-right readMore">
-                        <a href="/2022/04/14/struts2绕过waf读写文件及另类方式执行命令/">Read More...</a>
-                    </p>
                     
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2022/03/26/burp自定义解密数据插件/">burp自定义解密数据插件</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2022-03-26T14:31:00.000Z" itemprop="datePublished">
-          2022-03-26
-      </time>
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        续上之前一篇文章《某app测试》里所立的一个flag：明文传，明文响应；密文传，密文响应
-0x01 背景当数据包里都是密文，我们无从下手；就算是获得了加解密的一些关键信息，能解密出来，但是每个数据包我们都需要慢慢解密，请求包需要解密，响应包也需要解密，比较麻烦，所以它——autoDecoder来了。
-其实取auto这个名字并不是真正的auto，加解密算法还是需要自己去逆出来的，只是相对于数据包里的密文来说，可以算是半自动。
-0x02 优
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2022/03/26/burp自定义解密数据插件/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2022/03/24/burp验证码爆破插件二改/">burp验证码爆破插件二改</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2022-03-24T14:46:52.000Z" itemprop="datePublished">
-          2022-03-24
-      </time>
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        这不315晚会burp都上了嘛，蹭蹭时事热点。
-0x01 背景最近遇到了很多验证码登录口，验证码识别项目github上找了几个，但是不是装不上就是准确率不高的问题，后续也是慢慢修改出来了还算满意的识别验证码插件。
-原插件项目地址为： https://github.com/c0ny1/captcha-killer
-修改后的项目地址为: https://github.com/f0ng/captcha-killer-modified
-已征得原
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2022/03/24/burp验证码爆破插件二改/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2021/12/22/log4j2burpscanner/">log4j2burpscanner</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2021-12-22T03:22:30.000Z" itemprop="datePublished">
-          2021-12-22
-      </time>
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        本文为log4j2burpscanner插件的用法说明
-0x00 写在前面本工具仅为企业测试漏洞使用，严禁他人使用本工具攻击
-请勿将本项目技术或代码应用在恶意软件制作、软件著作权/知识产权盗取或不当牟利等非法用途中。实施上述行为或利用本项目对非自己著作权所有的程序进行数据嗅探将涉嫌违反《中华人民共和国刑法》第二百一十七条、第二百八十六条，《中华人民共和国网络安全法》《中华人民共和国计算机软件保护条例》等法律规定。本项目提及的技术仅可用于
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2021/12/22/log4j2burpscanner/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/09/07/shiro550另类检查方式/">shiro550另类检查方式</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-09-07T01:13:04.000Z" itemprop="datePublished">
-          2020-09-07
-      </time>
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        文章参考于：xray社区(微信公众号)由于文章只是大概说了思路，没有详细的进行操作说明，故有了此文
-整体处理函数如下：
-传入错误key：通过393行传入subjectContext，调用getRememberedSerializedIdentity函数，该函数位内org/apache/shiro/web/mgt/CookieRememberMeManager.java：
-该段函数含义为取cookie里的rememberMe参数，然后进行
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/09/07/shiro550另类检查方式/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2020/09/06/test/">test</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2020-09-06T05:33:24.000Z" itemprop="datePublished">
-          2020-09-06
-      </time>
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
                         
-
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2020/09/06/test/">Read More...</a>
-                    </p>
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                            
+                              <h4 class="title"><a href="/2022/04/14/struts2绕过waf读写文件及另类方式执行命令/">struts2绕过waf读写文件及另类方式执行命令</a></h4>
+                            
+                            <p><time datetime="2022-04-14T02:40:57.000Z"><a href="/2022/04/14/struts2绕过waf读写文件及另类方式执行命令/">2022-04-14</a></time></p>
+                        </div>
                     
                 </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
+            </div>    
         </div>
-        
-        <nav class="pagination" role="pagination">
-          
-          
-        </nav>
     </div>
-</section>
+</section> 
+
 <section id="statement">
     <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
         <div class="row">
@@ -402,8 +219,6 @@ Runtime很熟悉，执行
         </div>
     </div>
 </section>
-<!-- ============================ END Content =========================== -->
-
       
 <!-- ============================ Footer =========================== -->
 

